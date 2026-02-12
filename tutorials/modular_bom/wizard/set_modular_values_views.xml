@@ -6,7 +6,7 @@
             <form string="Set modular type values">
                 <field name="line_ids">
                     <list editable="bottom" create="false" delete="false">
-                        <field name="modular_type_id"/>
+                        <field name="modular_type_id" readonly="1" force_save="1"/>
                         <field name="value"/>
                     </list>
                 </field>
