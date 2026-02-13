@@ -16,7 +16,7 @@
         'views/mrp_bom_views.xml',
         'views/mrp_production_views.xml',
         'views/sale_order_views.xml',
-        'wizard/set_modular_values_views.xml',
+        'views/sale_order_line_modular_views.xml',
     ],
     'installable': True,
     'application': False,

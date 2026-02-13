@@ -9,16 +9,6 @@ class SaleOrderLine(models.Model):
         string='Modular Values'
     )
     
-    has_modular_types = fields.Boolean(
-        compute='_compute_has_modular_types',
-        store=True
-    )
-
-    @api.depends('product_id', 'product_id.modular_type_ids')
-    def _compute_has_modular_types(self):
-        for line in self:
-            line.has_modular_types = bool(line.product_id.modular_type_ids)
-
     def action_open_modular_values_wizard(self):
         self.ensure_one()
         # Ensure all modular types from the product have a corresponding value record

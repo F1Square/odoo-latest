@@ -5,12 +5,11 @@
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='order_line']/list/field[@name='product_id']" position="after">
-                <field name="has_modular_types" column_invisible="True"/>
                 <button name="action_open_modular_values_wizard" 
                         type="object" 
                         icon="fa-flask" 
                         title="Set modular values"
-                        invisible="not has_modular_types"/>
+                        invisible="not product_id or not product_id.modular_type_ids"/>
             </xpath>
         </field>
     </record>

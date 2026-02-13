@@ -11,5 +11,4 @@ class MrpProduction(models.Model):
             )[:1]
             if modular_value:
                 res['product_uom_qty'] = res.get('product_uom_qty', product_uom_qty) * modular_value.value
-            res['modular_type_id'] = bom_line.modular_type_id.id
         return res

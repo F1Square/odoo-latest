@@ -12,6 +12,8 @@ class StockMove(models.Model):
     _inherit = 'stock.move'
 
     modular_type_id = fields.Many2one(
-        'modular.type',
-        string='Module Type'
+        related='bom_line_id.modular_type_id',
+        string='Module Type',
+        store=True,
+        readonly=True
     )
