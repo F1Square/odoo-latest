@@ -1,18 +1,20 @@
 <odoo>
-    <record id="view_set_modular_values_wizard_form" model="ir.ui.view">
-        <field name="name">set.modular.values.wizard.form</field>
-        <field name="model">set.modular.values.wizard</field>
+    <record id="view_set_modular_values_form" model="ir.ui.view">
+        <field name="name">sale.order.line.modular.form</field>
+        <field name="model">sale.order.line</field>
         <field name="arch" type="xml">
             <form string="Set modular type values">
-                <field name="line_ids">
-                    <list editable="bottom" create="false" delete="false">
-                        <field name="modular_type_id" readonly="1" force_save="1"/>
-                        <field name="value"/>
-                    </list>
-                </field>
+                <sheet>
+                    <field name="modular_value_ids">
+                        <list editable="bottom" create="false" delete="false">
+                            <field name="modular_type_id" readonly="1" force_save="1"/>
+                            <field name="value"/>
+                        </list>
+                    </field>
+                </sheet>
                 <footer>
-                    <button name="action_confirm" string="Add" type="object" class="btn-primary"/>
-                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    <button string="Confirm" type="object" name="action_confirm_modular_values" class="btn-primary"/>
+                    <button string="Discard" class="btn-secondary" special="cancel"/>
                 </footer>
             </form>
         </field>

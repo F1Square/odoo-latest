@@ -21,22 +21,29 @@ class SaleOrderLine(models.Model):
 
     def action_open_modular_values_wizard(self):
         self.ensure_one()
+        # Ensure all modular types from the product have a corresponding value record
+        existing_types = self.modular_value_ids.mapped('modular_type_id')
+        missing_types = self.product_id.modular_type_ids - existing_types
+        if missing_types:
+            self.write({
+                'modular_value_ids': [
+                    (0, 0, {'modular_type_id': m_type.id, 'value': 1.0})
+                    for m_type in missing_types
+                ]
+            })
+        
         return {
             'name': 'Set modular type values',
             'type': 'ir.actions.act_window',
-            'res_model': 'set.modular.values.wizard',
+            'res_model': 'sale.order.line',
+            'res_id': self.id,
             'view_mode': 'form',
             'target': 'new',
-            'context': {
-                'default_sale_line_id': self.id,
-                'default_line_ids': [
-                    (0, 0, {
-                        'modular_type_id': m_type.id,
-                        'value': self.modular_value_ids.filtered(lambda v: v.modular_type_id == m_type)[:1].value or 1.0
-                    }) for m_type in self.product_id.modular_type_ids
-                ]
-            }
+            'view_id': self.env.ref('modular_bom.view_set_modular_values_form').id,
         }
+
+    def action_confirm_modular_values(self):
+        return {'type': 'ir.actions.act_window_close'}
 
 class SaleOrderLineModularValue(models.Model):
     _name = 'sale.order.line.modular.value'
